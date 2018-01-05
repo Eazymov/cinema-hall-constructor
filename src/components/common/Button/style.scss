@@ -1,0 +1,50 @@
+@import '~mixins.scss';
+
+.btn {
+  text-transform: uppercase;
+  justify-content: center;
+  font-family: inherit;
+  border-radius: 2px;
+  font-size: .875rem;
+  line-height: 36px;
+  user-select: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: .2s;
+  display: flex;
+  border: none;
+
+  &:disabled {
+    background-color: #e3e3e3;
+    pointer-events: none;
+    color: $grey;
+  }
+  
+  &.raised {
+    box-shadow: $elevation1Shadow;
+
+    &:hover {
+      box-shadow: $elevation3Shadow;
+      transform: translateY(-1px);
+    }
+  
+    &:active {
+      transform: translateY(1px);
+      box-shadow: $lowElevation;
+    }
+  
+    &:disabled {
+      box-shadow: $lowElevation;
+    }
+  }
+
+  .text {
+    margin: 0 3px;
+  }
+
+  .icon {
+    line-height: inherit;
+    font-size: 1.4em;
+    margin: 0 3px;
+  }
+}

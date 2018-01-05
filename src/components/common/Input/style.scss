@@ -1,0 +1,42 @@
+@import '~variables.scss';
+
+.input {
+  background-color: $white;
+  flex-flow: row nowrap;
+  align-items: center;
+  border-radius: 2px;
+  position: relative;
+  line-height: 36px;
+  font-size: 14px;
+  padding: 0 6px;
+  display: flex;
+  height: 36px;
+
+  .label {
+    margin-right: 4px;
+    line-height: 36px;
+  }
+
+  .field {
+    line-height: 20px;
+    height: 20px;
+    flex-grow: 1;
+    width: 0;
+
+    &:focus + .highlight {
+      border-bottom: 2px solid $blue;
+    }
+  }
+
+  .highlight {
+    border-bottom: 1px solid $borderColor;
+    border-radius: inherit;
+    pointer-events: none;
+    position: absolute;
+    transition: .2s;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+  }
+}

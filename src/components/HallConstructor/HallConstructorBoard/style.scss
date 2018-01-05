@@ -1,0 +1,81 @@
+@import '~variables.scss';
+
+.hall-board {
+  background-color: $white;
+  border-radius: 2px;
+  max-height: 500px;
+  height: 45vw;
+
+  .hall-svg {
+    background-image: linear-gradient(
+        to right,
+        $borderColor .5px,
+        transparent .5px,
+        transparent calc(100% - .5px),
+        $borderColor 100%
+      ),
+      linear-gradient(
+        to bottom,
+        $borderColor .5px,
+        transparent .5px,
+        transparent calc(100% - .5px),
+        $borderColor 100%
+      );
+    background-size: 1% 1%;
+    background-repeat: repeat;
+
+    .selection {
+      fill: rgba($blue, .15);
+      stroke-width: .2;
+      stroke: $blue;
+      z-index: 5;
+
+      .seat {
+        pointer-events: none;
+
+        circle {
+          stroke: $blue;
+        }
+
+        text {
+          fill: $blue;
+        }
+      }
+    }
+
+    .seat {
+      user-select: none;
+
+      &:active {
+
+        text {
+          fill: $white;
+        }
+
+        circle {
+          stroke: $blue;
+          fill: $blue;
+        }
+      }
+  
+      text {
+        alignment-baseline: middle;
+        pointer-events: none;
+        transition: fill .1s;
+        text-anchor: middle;
+        position: relative;
+        stroke-width: .05;
+        z-index: 5;
+      }
+      
+      circle {
+        transition: stroke .2s, fill .2s;
+        position: relative;
+        fill: $borderColor;
+        stroke-width: .2;
+        cursor: pointer;
+        stroke: #333;
+      }
+    }
+  }
+}

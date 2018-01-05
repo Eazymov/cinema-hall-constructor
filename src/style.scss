@@ -1,0 +1,44 @@
+@import './default.scss';
+
+.App {
+  justify-content: center;
+  background-color: #eee;
+  align-items: center;
+  min-height: 100vh;
+  display: flex;
+  width: 100%;
+}
+
+[data-title] {
+  position: relative;
+  
+  &:hover::after {
+    top: calc(100% + 4px);
+    visibility: visible;
+    opacity: 1;
+  }
+
+  &::after {
+    transition: .2s;
+    transition-timing-function: ease-out;
+    background-color: rgba(#000, .74);
+    content: attr(data-title);
+    top: calc(100% + 10px);
+    transition-delay: .3s;
+    display: inline-block;
+    text-transform: none;
+    white-space: nowrap;
+    line-height: 1.4em;
+    border-radius: 2px;
+    position: absolute;
+    visibility: hidden;
+    padding: 0 .375em;
+    font-weight: 400;
+    font-size: .8em;
+    height: 1.4em;
+    z-index: 999;
+    color: #fff;
+    opacity: 0;
+    left: 50%;
+  }
+}

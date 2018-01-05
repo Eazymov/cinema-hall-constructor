@@ -1,0 +1,14 @@
+@import '~variables.scss';
+
+@mixin card {
+  box-shadow: $elevation1Shadow;
+  background-color: #fff;
+  border-radius: 2px;
+  padding: 12px 16px;
+}
+
+@mixin pseudo($display: block, $pos: absolute, $content: '') {
+  display: $display;
+  content: $content;
+  position: $pos;
+}

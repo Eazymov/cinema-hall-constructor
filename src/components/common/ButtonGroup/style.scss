@@ -1,0 +1,25 @@
+@import '~variables.scss';
+
+.button-group {
+  border-radius: 2px;
+  overflow: hidden;
+  height: 36px;
+  width: 100%;
+
+  .btn {
+    display: inline-block;
+    box-shadow: none;
+
+    &:hover {
+      box-shadow: none;
+    }
+
+    &:first-of-type:not(:last-of-type) {
+      border-radius: 2px 0 0 2px;
+    }
+
+    &:last-of-type:not(:first-of-type) {
+      border-radius: 0 2px 2px 0;
+    }
+  }
+}

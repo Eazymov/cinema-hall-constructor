@@ -1,10 +1,18 @@
+import './style.scss'
+
 import React from 'react'
 import { render } from 'react-dom'
 
-import App from './App'
+import HallConstructor from 'Components/HallConstructor'
 import registerServiceWorker from './registerServiceWorker'
 
-const root = document.getElementById('root')
+const root = document.querySelector('#root')
+
+const App = () => (
+  <div className="App">
+    <HallConstructor />
+  </div>
+)
 
 render(<App />, root)
-registerServiceWorker();
+registerServiceWorker()

@@ -1,0 +1,56 @@
+.scrollbox {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  
+  .content {
+    padding-right: calc(100% + 5px);
+    width: calc(200% + 20px);
+    flex-direction: column;
+    overflow-y: scroll;
+    max-height: 100%;
+    display: flex;
+
+    & > * {
+      flex-shrink: 0;
+    }
+  }
+    
+  .scrollbar {
+    border-left: 1px solid rgba(#000, .15);
+    background-color: rgba(#fff, .5);
+    position: absolute;
+    height: 100%;
+    right: 0;
+    top: 0;
+    
+    &:hover {
+      background-color: #fff;
+
+      .thumb {
+        width: 8px;
+      }
+    }
+      
+    &::before {
+      position: absolute;
+      height: 100%;
+      left: -20px;
+      content: '';
+      width: 20px;
+      top: 0;
+    }
+    
+    .thumb {
+      transition: width .15s, height .3s;
+      user-select: none;
+      cursor: pointer;
+      width: 4px;
+      left: 0;
+
+      &:active {
+        width: 8px;
+      }
+    }
+  }
+}

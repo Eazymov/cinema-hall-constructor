@@ -1,0 +1,21 @@
+@import '~variables.scss';
+
+.context-menu {
+  box-shadow: $elevation3Shadow;
+  background-color: #fff;
+  position: absolute;
+  visibility: hidden;
+  border-radius: 2px;
+  opacity: 0;
+  left: 0;
+  top: 0;
+
+  &.active {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  &-container {
+    position: relative;
+  }
+}
