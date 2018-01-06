@@ -7,10 +7,6 @@ const moveSVG = ({
 }) => {
   const { clientX: startX, clientY: startY } = event
 
-  if (event.which !== 1) {
-    return false
-  }
-
   const size = parent.getBoundingClientRect().width
   const { x: targetX, y: targetY, width, height } = target.getBBox()
   const halfWidth = width / 2

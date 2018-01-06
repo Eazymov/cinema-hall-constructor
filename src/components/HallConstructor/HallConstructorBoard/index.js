@@ -7,6 +7,7 @@ import { setAttributes } from 'Utils/DOM'
 import ScrollBox from 'Components/common/ScrollBox'
 import { abs, roundTo } from 'Utils/math'
 import ContextMenuContainer from 'Components/common/ContextMenuContainer'
+import ContextMenu from './ContextMenu'
 
 const svgNS = 'http://www.w3.org/2000/svg'
 const getDefaultSelectionBounds = () => ({
@@ -15,12 +16,6 @@ const getDefaultSelectionBounds = () => ({
   width: 0,
   height: 0,
 })
-
-const ContextMenu = () => {
-  return (
-    <h1>Context Menu</h1>
-  )
-}
 
 class HallConstructorBoard extends Component {
   state = {
@@ -32,22 +27,50 @@ class HallConstructorBoard extends Component {
   handleSeatMove = (seat) => (reactEvent) => {
     reactEvent.stopPropagation()
 
+    const { nativeEvent } = reactEvent
+    const { hallSVG } = this
+    const size = hallSVG.getBoundingClientRect().width
+    const seatSize = seat.size
+    const seatRad = seatSize / 2
+    let { offsetX, offsetY } = nativeEvent
+    offsetX = offsetX / size * 100
+    offsetY = offsetY / size * 100
+
+    this.setState({
+      selectedSeatsIDs: [seat.id],
+    })
+
+    this.setSelection({
+      x: offsetX - seatRad,
+      y: offsetY - seatRad,
+      width: seatSize,
+      height: seatSize,
+    })
+    this.selectSeats()
+    /* 
     this.resetSelection()
-    const event = reactEvent.nativeEvent
-    const g = event.target.parentElement
+    const { nativeEvent } = reactEvent
+    const g = nativeEvent.target.parentElement
     const { hallSVG, props } = this
+    this.handleSelectionMove(reactEvent)
+
+    if (nativeEvent.which !== 1) return;
+
+    reactEvent.stopPropagation()
 
     moveSVG({
+      event: nativeEvent,
       parent: hallSVG,
       target: g,
-      event,
-      onMouseUp({ x, y }) {
+      onMouseUp({ x, y, moveX, moveY }) {
+        if (moveX === 0 && moveY === 0) return;
+
         props.onSeatsUpdate([seat.id], {
           x: roundTo(x, 4),
           y: roundTo(y, 4),
         })
       }
-    })
+    }) */
   };
 
   startSelection = ({ nativeEvent: event }) => {
@@ -76,12 +99,15 @@ class HallConstructorBoard extends Component {
   };
 
   handleSelectionMove = (reactEvent) => {
-    reactEvent.stopPropagation()
-
+    const { nativeEvent } = reactEvent
     const { hallSVG, selectionRect, selectionGroup } = this
 
+    if (nativeEvent.which !== 1) return;
+
+    reactEvent.stopPropagation()
+
     moveSVG({
-      event: reactEvent.nativeEvent,
+      event: nativeEvent,
       parent: hallSVG,
       target: selectionGroup,
       onMouseUp: ({ left, top, moveX, moveY }) => {
@@ -97,7 +123,7 @@ class HallConstructorBoard extends Component {
     props.onSeatsMove(state.selectedSeatsIDs, shifts)
   };
 
-  setSelection = ({ x, y, width, height }) => {
+  setSelection = ({ x, y, width = 0, height = 0 }) => {
     const x0 = (width >= 0) ? x : x + width
     const y0 = (height >= 0) ? y : y + height
     const bounds = {
@@ -121,7 +147,12 @@ class HallConstructorBoard extends Component {
     const { seats } = this.props
     const [x1, y1] = [x0 + width, y0 + height]
     const selectedSeatsIDs = seats
-      .filter(({ x, y }) => !(x < x0 || x > x1 || y < y0 || y > y1))
+      .filter(({ x, y }) => !(
+        x <= x0 ||
+        x >= x1 ||
+        y <= y0 ||
+        y >= y1)
+      )
       .map(({ id }) => id)
 
     if (selectedSeatsIDs.length === 0) {
@@ -150,11 +181,14 @@ class HallConstructorBoard extends Component {
   };
 
   componentDidMount () {
-    document.onmousedown = ({ target }) => {
-      if (target !== this.selectionRect) {
+    /*
+    document.onmousedown = (event) => {
+      if (event.target !== this.selectionRect) {
+        console.log(event.path.includes(this.selectionRect))
         this.resetSelection()
       }
     }
+    */
   }
 
   componentWillUnmount () {

@@ -169,10 +169,7 @@ class HallConstructor extends Component {
     } = this.state
 
     return (
-      <div
-        tabIndex={1}
-        className="hall-editor"
-        onKeyDown={this.handleKeyDown}>
+      <div tabIndex={1} className="hall-editor" onKeyDown={this.handleKeyDown}>
         <div className="form">
           <div className="col">
             <Button
